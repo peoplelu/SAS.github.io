@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SAS: Segment Any 3D Scene with Integrated 2D Priors">
+  <meta name="keywords" content="SAS: Segment Any 3D Scene with Integrated 2D Priors">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAS: Segment Any 3D Scene with Integrated 2D Priors</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="icon" href="static/images/logo.jpg"> 
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+ -->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><img src="static/images/logo.jpg" style="vertical-align: sub; transform: rotate(90deg);" width="60">SAS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+          <!-- <h1 class="title is-1 publication-title">SAS</h1> -->
+          <!-- <h1 class="title is-3 publication-title">Learning <span style="color: rgb(38, 195, 38);">Fine-Grained</span> <span style="color: rgb(0, 140, 255);">Class-Agnostic</span> 3D Segmentation<br>without Manual Labels</h1> -->
+          <h1 class="title is-3 publication-title">Segment Any 3D Scene with Integrated 2D Priors</h1>
+          <!-- <div class="is-size-4"><b>ECCV 2024</b></div> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Zhuoyuan_Li4">Zhuoyuan Li</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=cRpteW4AAAAJ&hl=zh-CN">Jiahao Lu</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=-0y0FpkAAAAJ&hl=zh-CN">Jiacheng Deng</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Hanzhi Chang</a><sup>1</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="">Lifan Wu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://github.com/Rosetta-Leong">Yanzhe Liang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=9sCGe-gAAAAJ&hl=zh-CN">Tianzhu Zhang</a><sup>1&dagger;</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Science and Technology</span>
+
+          </div>
+          <div class="is-size-6 publication-authors">
+            <sup>*</sup>Equal contribution
+            <sup>&dagger;</sup>Corresponding author
+          </div>
+          <!-- <div class="is-size-6 publication-authors">
+            contact: hr20 (at) mails (dot) tsinghua (dot) edu (dot) cn
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+                  <!-- <a href=""
+                   class="external-link button is-normal is-rounded is-dark" disabled="">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a> -->
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Demo</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-centered has-text-centered">
+      <img src="./static/images/teaser_00.jpg" alt="Teaser Figure" width="1100px"/>
+      <!-- <div style="margin: -110px 230px 100px 230px">
+      <span style="border: 0px solid gray; width: 240px; display: inline-block; text-align: center">Mask3D  <br> trained on manual labels.</span> 
+      <span style="border: 0px solid gray; width: 250px; display: inline-block; text-align: center"><strong>Segment3D</strong> <br> trained on automatic labels.</span> -->
+      <!-- </div> -->
+
+      </h2>
+    </div>
+    <div class="container is-max-desktop">
+      <h2 class="subtitle has-text-centered is-6">
+      <strong>Left:</strong> The leading 2D open vocabulary models like LSeg and SEEM often misidentify objects, which makes the distilled 3D model perform the same misidentification. 
+      <strong>Middle:</strong> Our proposed SAS successfully correct the misidentified object.
+      <strong>Right:</strong> SAS distills open vocabulary knowledge from multiple 2D models with novel designs, e.g., Annotation-free Model Capability Construction.
+      <!-- This is achieved through the automatic generation of high-quality training masks using foundation models for image segmentation. -->
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- 
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The open vocabulary capability of 3D models is increasingly valued, as traditional methods with models trained with fixed categories fail to recognize unseen objects in complex dynamic 3D scenes. In this paper, we propose a simple yet effective approach, SAS, to integrate the open vocabulary capability of multiple 2D models and migrate it to 3D domain. Specifically, we first propose Model Alignment via Text to map different 2D models into the same embedding space using text as a bridge. Then we propose Annotation-Free Model Capability Construction to explicitly quantify the 2D model's capability of recognizing different categories using diffusion models. Following this, point cloud features from different 2D models are fused with the guide of constructed model capabilities. Finally, the integrated 2D open vocabulary capability is transferred to 3D domain through feature distillation. SAS outperforms previous methods by a large margin across multiple datasets, including ScanNet v2, Matterport3D, and nuScenes, while its generalizability is further validated on downstream tasks, e.g., <strong>gaussian segmentation</strong> and <strong>instance segmentation</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Methodology</h2>
+        <img src="./static/images/overview3_00.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Overview of our proposed SAS.</strong> SAS first align features of different models in a unified embedding space. Then SAS constructs models' capability to recognize various objects. With the constructed capability as guide, features from different 2D models are integrated. Finally, a 3D network is distilled to enable 3D open vocabulary understanding. 
+          </p>
+        </div>
+
+        <img src="./static/images/align_model_00.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Overview of Model Alignment via Text.</strong> Features from different models are first aligned on text level, which are then encoded by a shared text encoder to produce aligned features. It is worth noting that we adopt a pre-trained captioner, TAP , to provide additional semantic information.
+          </p>
+        </div>
+
+        <img src="./static/images/capability2_00.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Overview of Annotation-free Model Capability Construction.</strong> Stable Diffusion model is utilized to generate synthesized images with masks computed by SAM. By assessing model's performance on synthesized images, we construct model capabilities.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Exp. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Results</h2>
+        <h3 class="title is-4">Open-Vocabulary 3D Semantic Segmentation on ScanNet V2 (Indoor)</h3>
+        <img src="./static/images/visualize_scannet_00.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p><br><br><br>
+          </p>
+        </div>
+      
+        <h3 class="title is-4">Open-Vocabulary 3D Semantic Segmentation on Matterport3D (Indoor)</h3>
+        <img src="./static/images/visualization_matterport_00.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p><br><br><br>
+          </p>
+        </div>
+
+        <h3 class="title is-4">Open-Vocabulary 3D Semantic Segmentation (Outdoor)</h3>
+        <img src="./static/images/outdoor.png"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p><br><br><br>
+          </p>
+        </div>
+        
+        <h3 class="title is-4">Open-Vocabulary 3D Gaussian Segmentation</h3>
+        <img src="./static/images/gaussian.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p>
+            We adopt Semantic Gaussians as our baseline, enabling precise zero-shot 3D Gaussian segmentation through knowledge distillation with SAS. We also provide visualizations of the rendered 2D images.
+            <br><br><br></p>
+        </div>
+
+        <h3 class="title is-4">Open-Vocabulary 3D Scene Understanding</h3>
+        <img src="./static/images/understanding_00.jpg"
+                  class="teaser-fig"
+                  alt="teaser-fig."/>
+        <div class="content has-text-justified">
+          <p>
+            Thanks for our designed Model Alignment via Text, which adopt a pre-trained captioner, TAP , to provide additional semantic information. Given a detailed text prompt, 
+            SAS finds the corresponding masks in a given 3D scene. 
+            <br><br><br></p>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Exp. -->
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- <pre><code>
+      @article{Huang2023Segment3D,
+        author    = {Huang, Rui and Peng, Songyou and Takmaz, Ayca and Tombari, Federico and Pollefeys, Marc and Song, Shiji and Huang, Gao and Engelmann, Francis},
+        title     = {Segment3D: Learning Fine-Grained Class-Agnostic 3D Segmentation without Manual Labels},
+        journal   = {European Conference on Computer Vision (ECCV)},
+        year      = {2024}
+      }</code></pre> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <!-- <div class="column is-8"> -->
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            It borrows the source code of <a
+              href="https://nerfies.github.io/">Nerfies</a>, <a
+              href="https://segment3d.github.io/">Segment3D</a>
+              We sincerely thank them for developing and open-sourcing this template.
+          </p>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
