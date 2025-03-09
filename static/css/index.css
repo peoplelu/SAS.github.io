@@ -156,7 +156,14 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
-
+.special-text {
+            font-family: 'Lobster', cursive;
+            font-size: 24px;
+            color: #333; 
+            line-height: 1.5; 
+            text-align: center; 
+            padding: 20px; 
+}
 
 .teaser-fig {
   width: 100%;
