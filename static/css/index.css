@@ -157,12 +157,14 @@ body {
   border-radius: 5px;
 }
 .special-text {
-            font-family: 'Lobster', cursive;
-            font-size: 24px;
-            color: #333; 
-            line-height: 1.5; 
-            text-align: center; 
-            padding: 20px; 
+  font-family: 'Comic Sans MS', cursive; /* 使用 Lobster 字体 */
+  font-size: 28px; /* 设置字体大小 */
+  color: #ff0019b1; /* 设置纯红色 */
+  font-style: italic; /* 设置斜体 */
+  font-weight: bold; /* 设置粗体 */
+  line-height: 1.5; /* 设置行高 */
+  text-align: center; /* 居中对齐 */
+  padding: 20px; /* 内边距 */
 }
 
 .teaser-fig {
